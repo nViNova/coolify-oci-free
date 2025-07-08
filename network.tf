@@ -1,80 +1,50 @@
 # VCN configuration
-resource "oci_core_vcn" "coolify_vcn" {
+resource "oci_core_vcn" "wrib_vcn" {
   cidr_block     = "10.0.0.0/16"
   compartment_id = var.compartment_id
-  display_name   = "network-coolify-${random_string.resource_code.result}"
+  display_name   = "network-wrib-${random_string.resource_code.result}"
   dns_label      = "vcn${random_string.resource_code.result}"
 }
 
 # Subnet configuration
-resource "oci_core_subnet" "coolify_subnet" {
+resource "oci_core_subnet" "wrib_subnet" {
   cidr_block     = "10.0.0.0/24"
   compartment_id = var.compartment_id
-  display_name   = "subnet-coolify-${random_string.resource_code.result}"
+  display_name   = "subnet-wrib-${random_string.resource_code.result}"
   dns_label      = "subnet${random_string.resource_code.result}"
-  route_table_id = oci_core_vcn.coolify_vcn.default_route_table_id
-  vcn_id         = oci_core_vcn.coolify_vcn.id
+  route_table_id = oci_core_vcn.wrib_vcn.default_route_table_id
+  vcn_id         = oci_core_vcn.wrib_vcn.id
 
   # Attach the security list
-  security_list_ids = [oci_core_security_list.coolify_security_list.id]
+  security_list_ids = [oci_core_security_list.wrib_security_list.id]
 }
 
 # Internet Gateway configuration
-resource "oci_core_internet_gateway" "coolify_internet_gateway" {
+resource "oci_core_internet_gateway" "wrib_internet_gateway" {
   compartment_id = var.compartment_id
-  display_name   = "Internet Gateway network-coolify"
+  display_name   = "Internet Gateway network-wrib"
   enabled        = true
-  vcn_id         = oci_core_vcn.coolify_vcn.id
+  vcn_id         = oci_core_vcn.wrib_vcn.id
 }
 
 # Default Route Table
-resource "oci_core_default_route_table" "coolify_default_route_table" {
-  manage_default_resource_id = oci_core_vcn.coolify_vcn.default_route_table_id
+resource "oci_core_default_route_table" "wrib_default_route_table" {
+  manage_default_resource_id = oci_core_vcn.wrib_vcn.default_route_table_id
 
   route_rules {
     destination       = "0.0.0.0/0"
     destination_type  = "CIDR_BLOCK"
-    network_entity_id = oci_core_internet_gateway.coolify_internet_gateway.id
+    network_entity_id = oci_core_internet_gateway.wrib_internet_gateway.id
   }
 }
 
-# Security List for Coolify
-resource "oci_core_security_list" "coolify_security_list" {
+# Security List for wrib
+resource "oci_core_security_list" "wrib_security_list" {
   compartment_id = var.compartment_id
-  vcn_id         = oci_core_vcn.coolify_vcn.id
-  display_name   = "Coolify Security List"
+  vcn_id         = oci_core_vcn.wrib_vcn.id
+  display_name   = "wrib Security List"
 
-  # Ingress Rules for Coolify and Reverse Proxy
-  ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
-    tcp_options {
-      min = 8000
-      max = 8000
-    }
-    description = "Allow HTTP traffic for Coolify on port 8000"
-  }
-
-  ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
-    tcp_options {
-      min = 6001
-      max = 6001
-    }
-    description = "Allow WebSocket traffic for Coolify on port 6001"
-  }
-
-  ingress_security_rules {
-    protocol = "6" # TCP
-    source   = "0.0.0.0/0"
-    tcp_options {
-      min = 6002
-      max = 6002
-    }
-    description = "Allow terminal traffic for Coolify on port 6002"
-  }
-
+  # Ingress Rules for wrib and Reverse Proxy
   ingress_security_rules {
     protocol = "6" # TCP
     source   = "0.0.0.0/0"

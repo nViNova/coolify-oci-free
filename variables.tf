@@ -9,23 +9,23 @@ variable "compartment_id" {
 }
 
 variable "source_image_id" {
-  description = "Source Ubuntu 22.04 image OCID. Find the right one for your region: https://docs.oracle.com/en-us/iaas/images/image/128dbc42-65a9-4ed0-a2db-be7aa584c726/index.htm"
+  description = "Source Ubuntu Minimal 24.04 image OCID. Find the right one for your region: https://docs.oracle.com/en-us/iaas/images/ubuntu-2404/index.htm e.g. ocid1.image.oc1.ap-singapore-1.aaaaaaaavpms5nv7qmalnorgvemrgumiln5en2o6xmxllosxu5cdaqmgycyq for Singapore"
   type        = string
 }
 
 variable "num_worker_instances" {
-  description = "Number of Coolify worker instances to deploy (max 3 for free tier)."
+  description = "Number of wrib worker instances to deploy (max 3 for free tier)."
   type        = number
   default     = 1
 }
 
 variable "availability_domain_main" {
-  description = "Availability domain for coolify-main instance. Find it Core Infrastructure → Compute → Instances → Availability domain (left menu). For example: WBJv:EU-FRANKFURT-1-AD-1"
+  description = "Availability domain for wrib-main instance. Find it Core Infrastructure → Compute → Instances → Availability domain (left menu). For example: qeno:AP-SINGAPORE-1-AD-1"
   type        = string
 }
 
 variable "availability_domain_workers" {
-  description = "Availability domain for coolify-worker instances. Find it Core Infrastructure → Compute → Instances → Availability domain (left menu). For example: WBJv:EU-FRANKFURT-1-AD-2"
+  description = "Availability domain for wrib-worker instances. Find it Core Infrastructure → Compute → Instances → Availability domain (left menu). For example: qeno:AP-SINGAPORE-1-AD-1"
   type        = string
 }
 
@@ -38,11 +38,11 @@ variable "instance_shape" {
 variable "memory_in_gbs" {
   description = "Memory in GBs for instance shape config. 6 GB is the maximum for free tier with 3 working nodes."
   type        = string
-  default     = "6" # OCI Free
+  default     = "12" # OCI Free
 }
 
 variable "ocpus" {
   description = "OCPUs for instance shape config. 1 OCPU is the maximum for free tier with 3 working nodes."
   type        = string
-  default     = "1" # OCI Free
+  default     = "2" # OCI Free
 }

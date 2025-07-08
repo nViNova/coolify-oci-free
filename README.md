@@ -1,24 +1,12 @@
-# Coolify Deployment on OCI Free Tier
+# wrib Deployment on OCI Free Tier
 
-This Terraform project deploys a Coolify instance along with some worker nodes in the Oracle Cloud Infrastructure (OCI) Free Tier. Coolify is an open-source platform to deploy and manage applications with ease.
+This Terraform project deploys a wrib instance along with some worker nodes in the Oracle Cloud Infrastructure (OCI) Free Tier. wrib is an open-source platform to deploy and manage applications with ease.
 
 ## Deploy
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/statickidz/coolify-oci-free/archive/refs/heads/main.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/statickidz/wrib-oci-free/archive/refs/heads/main.zip)
 
 *Clicking the "Deploy to Oracle Cloud" button will load the Oracle Cloud Resource Manager to deploy the infrastructure described in this Terraform project. During deployment, you'll be prompted to configure the stack parameters. Review the settings, then launch the stack deployment.*
-
-## About Coolify
-
-![Coolify Logo](doc/coolify-logo.png)
-
-Coolify is an open-source & self-hostable alternative to Heroku / Netlify / Vercel / etc.
-
-It helps you manage your servers, applications, and databases on your own hardware; you only need an SSH connection. You can manage VPS, Bare Metal, Raspberry PIs, and anything else.
-
-For more information, take a look at his landing page at [coolify.io](https://coolify.io).
-
-![Coolify Screenshot](doc/coolify-screenshot.webp)
 
 ## OCI Free Tier Overview
 
@@ -34,7 +22,7 @@ Before deploying, ensure you have the following:
 - Oracle Cloud Infrastructure (OCI) account with Free Tier resources available.
 - SSH public key for instance access.
 
-## Add workers to Coolify
+## Add workers to wrib
 
 First of all, you need to add your private key on your `Keys & Tokens` section in order to connect to the worker instances.
 
@@ -48,13 +36,13 @@ First of all, you need to add your private key on your `Keys & Tokens` section i
 
 ## Project Structure
 
--   `bin/`: Contains bash scripts for setting up Coolify on both the main instance and the worker instances.
-    -   `coolify-main.sh`: Script to install Coolify on the main instance.
-    -   `coolify-worker.sh`: Script to configure necessary dependencies on worker instances.
--   `doc/`: Directory for images used in the README (e.g., screenshots of Coolify setup).
+-   `bin/`: Contains bash scripts for setting up wrib on both the main instance and the worker instances.
+    -   `wrib-main.sh`: Script to install wrib on the main instance.
+    -   `wrib-worker.sh`: Script to configure necessary dependencies on worker instances.
+-   `doc/`: Directory for images used in the README (e.g., screenshots of wrib setup).
 -   `helper.tf`: Contains helper functions and reusable modules to streamline the infrastructure setup.
 -   `locals.tf`: Defines local values used throughout the Terraform configuration, such as dynamic values or reusable expressions.
--   `main.tf`: Core Terraform configuration file that defines the infrastructure for Coolify's main and worker instances.
+-   `main.tf`: Core Terraform configuration file that defines the infrastructure for wrib's main and worker instances.
 -   `network.tf`: Configuration for setting up the required OCI networking resources (VCNs, subnets, security lists, etc.).
 -   `output.tf`: Specifies the output variables such as the IP addresses for the dashboard and worker nodes.
 -   `providers.tf`: Declares the required cloud providers and versions, particularly for Oracle Cloud Infrastructure.
@@ -67,7 +55,7 @@ The following variables are defined in `variables.tf`:
 
 - `ssh_authorized_keys`: Your SSH public key to access the instances.
 - `compartment_id`: OCI compartment where instances will be deployed.
-- `num_worker_instances`: Number of Coolify worker instances to deploy.
+- `num_worker_instances`: Number of wrib worker instances to deploy.
 - `availability_domain_main`: Availability domains to deploy the main instance.
 - `availability_domain_workers`: Availability domains to deploy the worker instances.
 - `instance_shape`: The shape (e.g., VM.Standard.E2.1.Micro) to be used for the instances.

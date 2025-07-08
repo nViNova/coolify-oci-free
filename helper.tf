@@ -1,6 +1,6 @@
 # Random resource ID
 resource "random_string" "resource_code" {
-  length  = 5
+  length  = 3
   special = false
   upper   = false
 }

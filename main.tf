@@ -1,6 +1,6 @@
 # Main instance
-resource "oci_core_instance" "coolify_main" {
-  display_name        = "coolify-main-${random_string.resource_code.result}"
+resource "oci_core_instance" "wrib_main" {
+  display_name        = "wrib-main-${random_string.resource_code.result}"
   compartment_id      = var.compartment_id
   availability_domain = var.availability_domain_main
 
@@ -9,12 +9,12 @@ resource "oci_core_instance" "coolify_main" {
 
   metadata = {
     ssh_authorized_keys = local.instance_config.ssh_authorized_keys
-    user_data           = base64encode(file("./bin/coolify-main.sh"))
+    user_data           = base64encode(file("./bin/wrib-main.sh"))
   }
 
   create_vnic_details {
-    display_name              = "coolify-main-${random_string.resource_code.result}"
-    subnet_id                 = oci_core_subnet.coolify_subnet.id
+    display_name              = "wrib-main-${random_string.resource_code.result}"
+    subnet_id                 = oci_core_subnet.wrib_subnet.id
     assign_ipv6ip             = false
     assign_private_dns_record = true
     assign_public_ip          = true
@@ -85,10 +85,10 @@ resource "oci_core_instance" "coolify_main" {
 }
 
 # Worker instances (similar to main instance)
-resource "oci_core_instance" "coolify_worker" {
+resource "oci_core_instance" "wrib_worker" {
   count = var.num_worker_instances
 
-  display_name        = "coolify-worker-${count.index + 1}-${random_string.resource_code.result}"
+  display_name        = "wrib-worker-${count.index + 1}-${random_string.resource_code.result}"
   compartment_id      = var.compartment_id
   availability_domain = var.availability_domain_workers
 
@@ -97,12 +97,12 @@ resource "oci_core_instance" "coolify_worker" {
 
   metadata = {
     ssh_authorized_keys = local.instance_config.ssh_authorized_keys
-    user_data           = base64encode(file("./bin/coolify-worker.sh"))
+    user_data           = base64encode(file("./bin/wrib-worker.sh"))
   }
 
   create_vnic_details {
-    display_name              = "coolify-worker-${count.index + 1}-${random_string.resource_code.result}"
-    subnet_id                 = oci_core_subnet.coolify_subnet.id
+    display_name              = "wrib-worker-${count.index + 1}-${random_string.resource_code.result}"
+    subnet_id                 = oci_core_subnet.wrib_subnet.id
     assign_ipv6ip             = false
     assign_private_dns_record = true
     assign_public_ip          = true

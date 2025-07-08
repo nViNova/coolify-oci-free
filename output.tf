@@ -1,7 +1,7 @@
-output "coolify_dashboard" {
-  value = "http://${oci_core_instance.coolify_main.public_ip}:8000/ (wait 3-5 minutes to finish Coolify installation)"
+output "wrib_dashboard" {
+  value = "${oci_core_instance.wrib_main.public_ip} heres the main ip"
 }
 
-output "coolify_worker_ips" {
-  value = [for instance in oci_core_instance.coolify_worker : "${instance.public_ip} (use it to add the server in Coolify Dashboard)"]
+output "wrib_worker_ips" {
+  value = [for instance in oci_core_instance.wrib_worker : "${instance.public_ip} worker ip"]
 }
